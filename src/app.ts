@@ -1,5 +1,6 @@
-import express, { Application, Router } from 'express';
+import express, { Application } from 'express';
 import router from './app/router';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
 
 const app: Application = express();
 
@@ -11,5 +12,9 @@ app.use('/api/v1/', router);
 app.get('/', (req, res) => {
   res.send('Express Postgres Server is Running');
 });
+
+//global error handler
+
+app.use(globalErrorHandler);
 
 export default app;
