@@ -1,10 +1,10 @@
-export type User = {
+export type TUser = {
   username: string;
   password: string;
   role: 'admin' | 'patient' | 'doctor';
 };
 
-export type commonUser = {
+export type TCommonUser = {
   first_name: string;
   last_name: string;
   phone: number;
@@ -13,19 +13,6 @@ export type commonUser = {
   email: string;
 };
 
-export type Patient = commonUser & {
-  height: number;
-  weight: number;
-  bmi: number;
-  isSmoke: boolean;
-  region: string;
-  date_of_birth: string;
-  origin: string;
-  cur_health_status: string;
-  address: string;
-  recommendation_id: string;
-};
+export type Admin = TCommonUser & {};
 
-export type Admin = commonUser & {};
-
-export type Doctor = commonUser & {};
+export type Doctor = TCommonUser & {};

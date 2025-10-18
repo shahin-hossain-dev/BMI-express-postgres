@@ -28,13 +28,39 @@ model User {
   id String @id @default(uuid())
   password String
   username String @db.VarChar(50)
-  email String @db.VarChar(50) @unique @default("")
   role Role @default(patient)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+  patient Patient? 
   @@map("users")
 }
 
+
 // *************** patient prisma schema ******************
 
+enum Gender {
+  male
+  female
+}
+
+
+model Patient {
+  id String @id @default(uuid())
+  first_name String @db.VarChar(50)
+  last_name String @db.VarChar(50)
+  email String @db.VarChar(50) @unique
+  phone String @db.VarChar(12)
+  user_id String @unique
+  user User @relation(fields: [user_id], references: [id])
+  height Int
+  weight Int
+  bmi Float
+  gender Gender
+  region String?
+  date_of_birth String?
+  origin String?
+  cur_health_status String
+  address String @db.VarChar(200)
+  recommendation_id String?
+  isSmoke Boolean?
+}
