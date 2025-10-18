@@ -4,22 +4,13 @@ import { PatientValidationSchema } from '../patient/patient.validation';
 
 const getAllUsers = async () => {
   try {
-    const data = await prisma.user.findMany();
+    const data = await prisma.user.findMany({ include: { patient: true } });
 
     return data;
   } catch (error: any) {
     throw Error(error.message);
   }
 };
-
-// const createUser = async (body: User) => {
-//   try {
-//     const createData = await prisma.user.create({ data: body });
-//     return createData;
-//   } catch (error: any) {
-//     throw Error(error.message);
-//   }
-// };
 
 const createPatientIntoDB = async (body: TPatient) => {
   try {

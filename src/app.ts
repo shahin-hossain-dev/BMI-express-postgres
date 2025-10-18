@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import router from './app/router';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
+import notFoundRoute from './app/middlewares/notFoundRoute';
 
 const app: Application = express();
 
@@ -16,5 +17,7 @@ app.get('/', (req, res) => {
 //global error handler
 
 app.use(globalErrorHandler);
+
+app.use(notFoundRoute); //for not found api
 
 export default app;
