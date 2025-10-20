@@ -1,13 +1,14 @@
 import { z } from 'zod';
+import { UserValidationSchema } from '../users/user.validation';
 
 export const GenderEnum = z.enum(['male', 'female']); // match your Prisma enum
 
-export const PatientValidationSchema = z.object({
+const ValidationSchema = z.object({
   first_name: z.string().min(1).max(50),
   last_name: z.string().min(1).max(50),
   email: z.string().email().max(50),
   phone: z.string().min(11).max(11),
-  user_id: z.string().uuid(),
+  // user_id: z.string().uuid(),
   height: z.number().int().positive(),
   weight: z.number().int().positive(),
   bmi: z.number().positive(),
@@ -20,3 +21,8 @@ export const PatientValidationSchema = z.object({
   recommendation_id: z.string().nullable(),
   isSmoke: z.boolean().nullable(),
 });
+
+// 2ta validation akshathe merge kora hoyese
+
+export const PatientValidationSchema =
+  UserValidationSchema.merge(ValidationSchema);

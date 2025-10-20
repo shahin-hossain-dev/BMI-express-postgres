@@ -7,12 +7,10 @@ export type TUser = {
 export type TCommonUser = {
   first_name: string;
   last_name: string;
-  phone: number;
+  phone: string;
   gender: 'male' | 'female';
   user_id: string;
   email: string;
 };
 
-export type Admin = TCommonUser & {};
-
-export type Doctor = TCommonUser & {};
+export type TAdmin = TCommonUser & {};
