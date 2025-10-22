@@ -30,8 +30,6 @@ const createPatient = catchAsync(async (req, res, next) => {
 const createDoctor = catchAsync(async (req, res, next) => {
   const body: TDoctor = await req.body;
 
-  console.log(body);
-
   const result = await UserServices.createDoctorIntoDB(body);
 
   sendResponse(res, {

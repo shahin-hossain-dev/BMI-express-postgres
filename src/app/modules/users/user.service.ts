@@ -1,4 +1,5 @@
 import prisma from '../../utils/dbClient';
+import { handleError } from '../../utils/handleError';
 import { TDoctor } from '../doctor/doctor.interface';
 import { DoctorValidationSchema } from '../doctor/doctor.validation';
 import { TPatient } from '../patient/patient.interface';
@@ -61,25 +62,25 @@ const createPatientIntoDB = async (body: TPatient) => {
   }
 };
 
-const createDoctorIntoDB = async (body: TDoctor) => {
-  try {
-    const doctorValidation = await DoctorValidationSchema.parse(body);
+const createDoctorIntoDB = async (payload: TDoctor) => {
+  const validatedDoctor = await DoctorValidationSchema.parse(payload);
 
+  try {
     const resp = await prisma.$transaction(async (tx) => {
       const user = await tx.user.create({
         data: {
-          username: body?.username,
-          password: body?.password,
-          role: body?.role,
+          username: validatedDoctor?.username,
+          password: validatedDoctor?.password,
+          role: validatedDoctor?.role,
         },
       });
 
       const data = {
-        first_name: body.first_name,
-        last_name: body.last_name,
-        email: body.email,
-        phone: body.phone,
-        gender: body.gender,
+        first_name: validatedDoctor.first_name,
+        last_name: validatedDoctor.last_name,
+        email: validatedDoctor.email,
+        phone: validatedDoctor.phone,
+        gender: validatedDoctor.gender,
         user_id: user.id,
       };
 
@@ -89,8 +90,8 @@ const createDoctorIntoDB = async (body: TDoctor) => {
     });
 
     return resp;
-  } catch (error: any) {
-    throw Error(error);
+  } catch (err: unknown) {
+    handleError(err);
   }
 };
 
