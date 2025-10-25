@@ -10,7 +10,7 @@ const getAllUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: 'Fetched Successful',
+    message: 'User Fetched Successful',
     data,
   });
 });

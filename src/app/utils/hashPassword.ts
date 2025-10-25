@@ -9,3 +9,10 @@ export const hashPassword = async (plainPass: string): Promise<string> => {
 
   return hash;
 };
+
+export const comPassword = async (
+  plainPass: string,
+  hashPassword: string,
+): Promise<boolean> => {
+  return bcrypt.compare(plainPass, hashPassword);
+};
